@@ -180,9 +180,13 @@ h1, h2, p { margin-top: 0; }
 .stock-status.low { color: #b38345; }
 .stock-status.out { color: #bd6659; }
 
-.site-footer { min-height: 74px; padding: 15px max(5.5vw, 24px); display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #e9e6dc; background: #f1efe8; color: #99978d; font-size: 9px; }
-.footer-details { display: flex; align-items: end; flex-direction: column; gap: 6px; text-align: right; }
-.student-info { color: #77776e; font-size: 12px; }
+.site-footer { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "brand tagline" "student student"; align-items: center; gap: 13px 20px; min-height: 74px; padding: 18px max(5.5vw, 24px); border-top: 1px solid #e9e6dc; background: #f1efe8; color: #99978d; font-size: 9px; }
+.footer-brand { grid-area: brand; justify-self: start; }
+.footer-tagline { grid-area: tagline; justify-self: end; text-align: right; }
+.student-info { grid-area: student; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; width: 100%; padding: 12px 14px; border-left: 3px solid var(--green); background: #e7e9df; color: #4e5848; font-size: 13px; }
+.student-info > span { display: inline-flex; align-items: baseline; gap: 8px; }
+.student-label { color: #72766c; font-size: 11px; }
+.student-info strong { color: #34422f; font-weight: 700; }
 .footer-brand { color: #363830; font-size: 15px; }
 .footer-brand .brand-mark { width: 25px; height: 25px; font-size: 14px; }
 .toast { position: fixed; z-index: 10; left: 50%; bottom: 28px; padding: 12px 18px; border-radius: 3px; background: #30372c; color: white; font-size: 11px; opacity: 0; transform: translate(-50%, 12px); pointer-events: none; transition: opacity .2s, transform .2s; }
@@ -231,10 +235,11 @@ h1, h2, p { margin-top: 0; }
   .add-button { min-height: 36px; }
   .cart-panel { position: static; }
   .cart-items { max-height: 240px; }
-  .site-footer { padding: 15px 18px; gap: 12px; }
-  .footer-details { max-width: 205px; line-height: 1.6; }
-  .student-info { font-size: 11px; }
-  .footer-details > span:last-child { font-size: 8px; }
+  .site-footer { grid-template-columns: 1fr; grid-template-areas: "brand" "tagline" "student"; justify-items: start; gap: 10px; padding: 17px 18px; }
+  .footer-tagline { justify-self: start; max-width: 100%; text-align: left; line-height: 1.6; font-size: 8px; }
+  .student-info { gap: 8px 16px; padding: 11px 12px; font-size: 12px; }
+  .student-info > span { gap: 6px; }
+  .student-label { font-size: 10px; }
   .admin-view { padding: 36px 0 48px; }
   .admin-header { align-items: start; }
   .admin-header h1 { font-size: 24px; }
