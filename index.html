@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f4ef">
+  <title>모닝브루 | 카페 주문</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="모닝브루 홈">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span>morning<span class="brand-light">brew</span></span>
+    </a>
+    <div class="topbar-right">
+      <span class="open-status"><span class="status-dot"></span> 오늘도 신선하게</span>
+      <button class="admin-toggle" id="admin-toggle" type="button" aria-pressed="false">
+        <span aria-hidden="true">▦</span> 관리자 대시보드
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="customer-view" id="customer-view">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">YOUR DAILY CUP OF JOY</p>
+          <h1>좋은 하루의 시작,<br><span>커피 한 잔</span>으로.</h1>
+          <p class="hero-description">오늘도 정성껏 준비한 모닝브루의 커피를 만나보세요.</p>
+          <a class="hero-link" href="#menu">메뉴 둘러보기 <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="hero-bean bean-one"></div>
+          <div class="hero-bean bean-two"></div>
+          <div class="cup">
+            <div class="cup-coffee"></div>
+            <div class="cup-handle"></div>
+            <div class="cup-sleeve">M</div>
+          </div>
+          <span class="art-caption">MADE WITH<br>LOVE & COFFEE</span>
+        </div>
+        <div class="hero-stamp" aria-hidden="true">FRESH<br>BREWED<br>DAILY</div>
+      </section>
+
+      <div class="shop-layout" id="menu">
+        <section class="menu-section" aria-labelledby="menu-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">THE GOOD STUFF</p>
+              <h2 id="menu-heading">오늘의 메뉴</h2>
+            </div>
+            <span class="menu-count">01 — 05</span>
+          </div>
+          <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
+        </section>
+
+        <aside class="cart-panel" aria-labelledby="cart-heading">
+          <div class="cart-heading">
+            <div>
+              <p class="eyebrow">YOUR SELECTION</p>
+              <h2 id="cart-heading">장바구니 <span class="cart-count" id="cart-count">0</span></h2>
+            </div>
+            <span class="cart-icon" aria-hidden="true">♡</span>
+          </div>
+          <div class="cart-items" id="cart-items"></div>
+          <div class="cart-empty" id="cart-empty">
+            <span class="empty-cup" aria-hidden="true">☕</span>
+            <p>아직 담긴 메뉴가 없어요.</p>
+            <span>마음에 드는 커피를 골라보세요!</span>
+          </div>
+          <div class="cart-summary">
+            <div class="summary-line"><span>주문 금액</span><strong id="subtotal">0원</strong></div>
+            <div class="summary-line"><span>배달 / 기타</span><strong>무료</strong></div>
+            <div class="summary-total"><span>합계</span><strong id="total">0원</strong></div>
+          </div>
+          <button class="checkout-button" id="checkout-button" type="button" disabled>
+            주문하기 <span aria-hidden="true">→</span>
+          </button>
+          <p class="cart-note">매장에서 직접 신선하게 준비해드려요.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="admin-view hidden" id="admin-view">
+      <div class="admin-header">
+        <div>
+          <p class="eyebrow">STORE MANAGEMENT</p>
+          <h1>관리자 대시보드</h1>
+          <p class="admin-description">오늘의 주문과 메뉴 재고를 한눈에 확인하세요.</p>
+        </div>
+        <span class="admin-date" id="admin-date"></span>
+      </div>
+      <div class="stats-grid" id="stats-grid"></div>
+      <section class="admin-card">
+        <div class="admin-card-heading">
+          <div><p class="eyebrow">ORDER QUEUE</p><h2>주문 현황</h2></div>
+          <span class="live-pill"><span class="status-dot"></span> 실시간 현황</span>
+        </div>
+        <div class="orders-list" id="orders-list"></div>
+      </section>
+      <section class="admin-card inventory-card">
+        <div class="admin-card-heading">
+          <div><p class="eyebrow">INVENTORY</p><h2>메뉴별 재고</h2></div>
+          <span class="inventory-note">초기 재고 기준</span>
+        </div>
+        <div class="inventory-list" id="inventory-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#"><span class="brand-mark">M</span><span>morning<span class="brand-light">brew</span></span></a>
+    <span>매일 아침, 더 좋은 한 잔을 <span aria-hidden="true">·</span> FRESHLY BREWED</span>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
