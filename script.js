@@ -6,6 +6,7 @@ const MENU = [
   { id: "tea", name: "자몽허니블랙티", english: "GRAPEFRUIT HONEY BLACK TEA", description: "자몽의 상큼함과 꿀의 달콤함", price: 4800, stock: 6, art: "#efe8dc", circle: "#e4d6bc", cup: "tea" }
 ];
 const STORAGE_KEY = "morningbrew-cafe-state-v1";
+const LAYOUT_STORAGE_KEY = "morningbrew-layout-mode-v1";
 const money = (amount) => `${amount.toLocaleString("ko-KR")}원`;
 const $ = (selector) => document.querySelector(selector);
 let toastTimer;
@@ -44,6 +45,20 @@ function showToast(message) {
   toast.classList.add("visible");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove("visible"), 2600);
+}
+
+function setLayoutMode(mode, persist = true) {
+  document.body.classList.toggle("layout-mobile", mode === "mobile");
+  document.body.classList.toggle("layout-desktop", mode === "desktop");
+  $("#mobile-layout").setAttribute("aria-pressed", String(mode === "mobile"));
+  $("#desktop-layout").setAttribute("aria-pressed", String(mode === "desktop"));
+  if (!persist) return;
+  try {
+    localStorage.setItem(LAYOUT_STORAGE_KEY, mode);
+  } catch (error) {
+    console.error("화면 모드를 저장하지 못했습니다.", error);
+    showToast("화면 모드를 저장하지 못했습니다. 브라우저 저장 공간을 확인해주세요.");
+  }
 }
 
 function cartTotal() {
@@ -195,13 +210,20 @@ $("#checkout-button").addEventListener("click", () => {
   showToast(`주문이 접수되었습니다! 주문번호 ${order.id}`);
 });
 
-$("#admin-toggle").addEventListener("click", () => {
-  const showAdmin = $("#customer-view").classList.toggle("hidden");
+function setView(view) {
+  const showAdmin = view === "admin";
+  $("#customer-view").classList.toggle("hidden", showAdmin);
   $("#admin-view").classList.toggle("hidden", !showAdmin);
+  $("#order-toggle").setAttribute("aria-pressed", String(!showAdmin));
   $("#admin-toggle").setAttribute("aria-pressed", String(showAdmin));
   renderAdmin();
   window.scrollTo({ top: 0, behavior: "smooth" });
-});
+}
+
+$("#order-toggle").addEventListener("click", () => setView("order"));
+$("#admin-toggle").addEventListener("click", () => setView("admin"));
+$("#mobile-layout").addEventListener("click", () => setLayoutMode("mobile"));
+$("#desktop-layout").addEventListener("click", () => setLayoutMode("desktop"));
 
 $("#orders-list").addEventListener("click", (event) => {
   const button = event.target.closest("[data-complete]");
@@ -214,4 +236,12 @@ $("#orders-list").addEventListener("click", (event) => {
   showToast(`${order.id} 주문을 제조 완료 처리했습니다.`);
 });
 
+let initialLayout = window.matchMedia("(max-width: 620px)").matches ? "mobile" : "desktop";
+try {
+  const savedLayout = localStorage.getItem(LAYOUT_STORAGE_KEY);
+  if (savedLayout === "mobile" || savedLayout === "desktop") initialLayout = savedLayout;
+} catch (error) {
+  console.warn("저장된 화면 모드를 불러오지 못했습니다.", error);
+}
+setLayoutMode(initialLayout, false);
 renderAll();
